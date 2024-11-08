@@ -13,6 +13,7 @@ const Signup = () => {
   const onHandleSubmit=async(e)=>{
     e.preventDefault();
     console.log(data)
+    navigate('/auth/verify')
   }
   return (
     <div className='mobile:shadow-none tablet:shadow-none shadow-3xl rounded-md flex w-[60%] justify-center items-center   mobile:flex-col mobile:w-full tablet:flex-col tablet:w-full'>

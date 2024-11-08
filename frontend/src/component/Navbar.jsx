@@ -82,17 +82,17 @@ const Navbar = () => {
           isOpen ? "translate-y-0" : "-translate-y-full"
         } md:hidden`}
       >
-        <ul className="flex flex-col cursor-pointer">
+        <ul onClick={()=>{setIsOpen(false)}} className="flex flex-col cursor-pointer">
           <li  className="p-1 hover:bg-slate-100">
             <NavLink to={'/'}>Home</NavLink>
           </li>
-          <li className="p-1 hover:bg-slate-100">
+          <li onClick={()=>{setIsOpen(false)}}  className="p-1 hover:bg-slate-100">
             <NavLink>All Doctors</NavLink>
           </li>
-          <li className="p-1 hover:bg-slate-100">
+          <li  onClick={()=>{setIsOpen(false)}} className="p-1 hover:bg-slate-100">
             <NavLink>About</NavLink>
           </li>
-          <li className="p-1 hover:bg-slate-100">
+          <li  onClick={()=>{setIsOpen(false)}} className="p-1 hover:bg-slate-100">
             <NavLink>Contact</NavLink>
           </li>
         </ul>
