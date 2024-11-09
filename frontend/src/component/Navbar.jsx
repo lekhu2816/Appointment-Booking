@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate ,Link } from "react-router-dom";
 import {assets} from '../assets/assets.js'
 const Navbar = () => {
   const navigate=useNavigate();
@@ -11,23 +11,23 @@ const Navbar = () => {
 
   return (
     <nav className="z-20 relative">
-      <div className="px-10 py-2 mobile:px-5 tablet:px-5 flex justify-between items-center bg-white z-30 relative">
-        <div>
+      <div className=" w-full fixed top-0  px-10 py-2 mobile:px-2 tablet:px-5 flex justify-between items-center bg-white z-30 ">
+        <Link to={'/'}>
           <img className="h-8" src={assets.logo} alt="" />
-        </div>
+        </Link>
         <div>
           <ul className="gap-4 cursor-pointer flex mobile:hidden">
             <li>
               <NavLink to={'/'}>Home</NavLink>
             </li>
             <li>
-              <NavLink>All Doctors</NavLink>
+              <NavLink to={'/doctors'}>All Doctors</NavLink>
             </li>
             <li>
-              <NavLink>About</NavLink>
+              <NavLink to={'/about'}>About</NavLink>
             </li>
             <li>
-              <NavLink>Contact</NavLink>
+              <NavLink to={'/contact'}>Contact</NavLink>
             </li>
           </ul>
         </div>
@@ -68,13 +68,13 @@ const Navbar = () => {
          </div>
       </div>:<></>
        }
-        <button  onClick={toggle} className="md:hidden text-xl">
+        <button  onClick={toggle} className="md:hidden text-2xl">
           <i className={`fa-solid ${!isOpen ? "fa-bars" : "fa-xmark"}`}></i>
         </button>
        </div>
        
       </div>
-      <hr className="border-t-[1.5px] border-black-900 mx-5" />
+      <hr className="border-t-[1.2px] border-black-900 mx-5 mt-14 z " />
 
       
       <div
@@ -84,16 +84,16 @@ const Navbar = () => {
       >
         <ul onClick={()=>{setIsOpen(false)}} className="flex flex-col cursor-pointer">
           <li  className="p-1 hover:bg-slate-100">
-            <NavLink to={'/'}>Home</NavLink>
+            <Link to={'/'}>Home</Link>
           </li>
           <li onClick={()=>{setIsOpen(false)}}  className="p-1 hover:bg-slate-100">
-            <NavLink>All Doctors</NavLink>
+            <Link to={'/doctors'}>All Doctors</Link>
           </li>
           <li  onClick={()=>{setIsOpen(false)}} className="p-1 hover:bg-slate-100">
-            <NavLink>About</NavLink>
+            <Link to={'/about'}>About</Link>
           </li>
           <li  onClick={()=>{setIsOpen(false)}} className="p-1 hover:bg-slate-100">
-            <NavLink>Contact</NavLink>
+            <Link to={'/contact'}>Contact</Link>
           </li>
         </ul>
        {

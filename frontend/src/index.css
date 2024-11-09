@@ -19,5 +19,11 @@
 .container {
   @apply px-10 py-2;
 }
+.active{
+  @apply border-b-[1.5px] border-primary
+}
+ ::-webkit-scrollbar{
+  display: none;
+ }
 
 

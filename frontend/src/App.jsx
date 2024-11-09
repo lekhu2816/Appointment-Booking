@@ -6,6 +6,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Doctors from "./pages/Doctors";
 import RootLayout from "./layout/RootLayout";
 import AuthLayout from "./layout/AuthLayout";
 import Signin from "./pages/Signin";
@@ -18,8 +21,13 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
        <>
-        <Route path="/" element={<RootLayout />}>
+      <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="doctors" element={<Doctors/>} />
+        <Route path="doctors/:speciality" element={<Doctors/>} />
+        <Route path="contact" element={<Contact/>} />
+  
       </Route>
       <Route path="auth" element={<AuthLayout/>}>
          <Route path="signin" element={<Signin/>}/>

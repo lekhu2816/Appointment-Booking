@@ -16,11 +16,12 @@ const Signup = () => {
     navigate('/auth/verify')
   }
   return (
-    <div className='mobile:shadow-none tablet:shadow-none shadow-3xl rounded-md flex w-[60%] justify-center items-center   mobile:flex-col mobile:w-full tablet:flex-col tablet:w-full'>
-      <div className='w-1/2  mobile:w-full tablet:w-[70%] '>
-      <img className='w-full' src={assets.header_img} alt="" />
-      </div>
-      <div className='p-5 w-1/2  mobile:w-full tablet:w-[70%]  text-center'>
+    <div className='mobile:shadow-none tablet:shadow-none shadow-3xl rounded-md flex w-[60%] justify-center tablet:items-center  mobile:flex-col mobile:w-full tablet:flex-col tablet:w-full '>
+      <div className='w-1/2 flex items-end relative mobile:w-full tablet:w-[70%]'>
+  <img className='w-full  absolue bottom-0' src={assets.header_img} alt="" />
+</div>
+
+      <div className=' p-5 w-1/2  mobile:w-full tablet:w-[70%]  text-center'>
       <p className='text-2xl font-bold'>Create Account</p>
       <p className='text-sm text-slate-700 mt-2'>Please signup to book appointment</p> 
       <form onSubmit={onHandleSubmit} className='flex flex-col gap-4 my-4'> 
