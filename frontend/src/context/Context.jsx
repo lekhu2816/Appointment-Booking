@@ -1,9 +1,13 @@
 import React, { createContext } from 'react'
-
-const AppContext=createContext(null);
-const Context = () => {
+import { doctors } from '../assets/assets';
+export const AppContext=createContext(null);
+const Context = (props) => {
+  const contextValue={doctors}
   return (
-    <div>Context</div>
+   
+    < AppContext.Provider value={contextValue}>
+      {props.children}
+    </AppContext.Provider>
   )
 }
 

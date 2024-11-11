@@ -6,8 +6,8 @@ const Contact = () => {
     <div>
       <h1 className="my-5 text-3xl font-normal text-center">Contact Us</h1>
 
-      <div className=" flex justify-center tablet:mx-5 mobile:mx-2">
-        <div className="w-[60%] tablet:w-full mobile:w-full">
+      <div className= "flex justify-center tablet:mx-5 mobile:mx-2">
+        <div className=" w-[60%] tablet:w-full mobile:w-full">
           <div className=" flex gap-10   mobile:mx-2 mobile:flex-col">
 
             {/* section-left */}
@@ -49,6 +49,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      <hr className="my-10 mx-10 tablet:mx-5 mobile:mx-2" />
     </div>
   );
 };
