@@ -16,6 +16,7 @@ import Signup from "./pages/Signup";
 import VerifyUser from "./pages/VerifyUser";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Appointment from "./pages/Appointment";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="doctors" element={<Doctors/>} />
         <Route path="doctors/:speciality" element={<Doctors/>} />
         <Route path="contact" element={<Contact/>} />
+        <Route path="appointment/:docId" element={<Appointment/>} />
   
       </Route>
       <Route path="auth" element={<AuthLayout/>}>

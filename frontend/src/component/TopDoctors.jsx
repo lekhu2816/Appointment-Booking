@@ -10,8 +10,8 @@ const TopDoctors = () => {
         <div className='py-10 w-full flex justify-center flex-wrap gap-4'>
             {
                 doctors.slice(0,10).map((item,index)=>{
-                  return(
-                    <div onClick={()=>navigate(`doctor/${item._id}`)} key={index} className='cursor-pointer w-[220px] border border-blue-200 rounded-xl overflow-hidden tablet:w-[45%]
+                  return( 
+                  <div onClick={()=>navigate(`/appointment/${item._id}`)} key={index} className='cursor-pointer w-[220px] border border-blue-200 rounded-xl overflow-hidden tablet:w-[45%]
                     mobile:w-full hover:translate-y-[-10px] transition-all duration-300'>
                         <img  className='w-full bg-blue-50' src={item.image} alt="" />
                         <div className='p-4'>
