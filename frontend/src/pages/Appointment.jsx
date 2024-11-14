@@ -11,13 +11,13 @@ dayMap.set(5,"FRI")
 dayMap.set(6,"SAT")
 
 const schedule={
-SUN:["9:00 am","12:00 pm","4:00pm","7:00pm"],  
-MON:["8:00 am","11:00 am","3:30pm","6:30pm"],
-TUE:["10:30 am","1:00 am","4:30pm","7:30pm"],
-WED:["8:30 am","1:30 pm","4:30pm","8:00pm"],
-THU:["9:30 am","12:30 pm","3:30pm","6:30pm"],
-FRI:["11:00 am","11:30 am","3:00pm","8:30pm"],
-SAT:["10:00 am","11:30 pm","5:30pm","9:00pm"]
+SUN:["9:00 am","12:00 pm","4:00 pm","7:00 pm"],  
+MON:["8:00 am","11:00 am","3:30 pm","6:30 pm"],
+TUE:["10:30 am","1:00 am","4:30 pm","7:30 pm"],
+WED:["8:30 am","1:30 pm","4:30 pm","8:00 pm"],
+THU:["9:30 am","12:30 pm","3:30 pm","8:30 pm"],
+FRI:["11:00 am","11:30 am","3:00 pm","9:30 pm"],
+SAT:["10:00 am","11:30 pm","5:30 pm","9:00 pm"]
 }
 
 const Appointment = () => {
@@ -27,6 +27,7 @@ const Appointment = () => {
   const [doctorSlot,setDoctorSlot]=useState([]);
   const [slotIndex,setSlotIndex]=useState(0);
   const [slotTime,setSlotTime]=useState([]);
+  const [slotTimeIndex,setSlotTimeIndex]=useState(-1);
   
 
   const fetchDoctorInfo = async () => {
@@ -52,13 +53,53 @@ const Appointment = () => {
   // ----Getting slot-timing---------
   if (doctorSlot.length > 0 && doctorSlot[slotIndex]) {
     const arr = schedule[dayMap.get(doctorSlot[slotIndex].getDay())];
+    const currentDate=new Date();
+    
+    const selectedDate=doctorSlot[slotIndex].getDate();
+    const currentHour=currentDate.getHours();
+    if(currentDate.getDate()==selectedDate){
+    
+   const selectedTime= arr.filter((time)=>{
+      
+       let [hour,minute]=time.split(":");
+       let [m,period]=minute.split(" ");
+       hour=parseInt(hour);
+        if(period.toLowerCase()==="pm"&& hour!=12){
+          hour=hour+12;
+        }
+        else if (period.toLowerCase() === "am" && hour === 12) {
+          hour = 0;
+        }
+        if(currentHour>=hour){
+
+        }
+        else{
+         return time
+        }
+        
+       
+    })
+       setSlotTime(selectedTime);
+    }
+    else{
+    
     setSlotTime(arr);
-    console.log(doctorSlot[slotIndex].getHours())
-    console.log(doctorSlot[slotIndex].getMinutes())
+    }
+    
+    
    
   }
   }
   
+  const handlingOnClick=(index)=>{
+    setSlotTimeIndex(-1);
+    setSlotIndex(index);
+  }
+
+  const bookingSlot=()=>{
+     
+  }
+
   useEffect(()=>{
     getAvailableSlot()
   },[doctorInfo])
@@ -123,7 +164,7 @@ const Appointment = () => {
          doctorSlot.map((date, index) => (
            <div>
             <div
-             onClick={() => setSlotIndex(index)}
+             onClick={() => handlingOnClick(index)}
              key={index}
              className={`border border-gray-400 w-16  py-4 cursor-pointer rounded-full text-center font-medium ${slotIndex === index ? "bg-primary text-white border-primary" : "bg-white text-gray-700"}`}
            >
@@ -138,13 +179,16 @@ const Appointment = () => {
    
    {/* Slot Timing Wrapper */}
    <div className="w-full  mt-4">
-     <div className="flex overflow-scroll gap-4 ">
+    {
+      slotTime.length==0?<div className="text-lg text-red-600 p-2 ">
+         No more booking
+      </div>:<div className="flex overflow-scroll gap-4 ">
        {
          slotTime.map((time, index) => (
-           <div>
+           <div onClick={()=>setSlotTimeIndex(index)}>
             <p
              key={index}
-             className="text-center text-sm p-2 w-20 border-[1.5px] border-gray-400 cursor-pointer rounded-full whitespace-nowrap"
+             className={`text-center text-sm p-2 w-20 border-[1.5px] border-gray-400 cursor-pointer rounded-full whitespace-nowrap ${slotTimeIndex==index?"bg-primary text-white border-primary":""}`}
            >
              {time}
            </p>
@@ -152,6 +196,8 @@ const Appointment = () => {
          ))
        }
      </div>
+    }
+     
    </div>
    
    <button className="text-sm py-2 px-10 bg-primary text-white rounded-full mt-4">
