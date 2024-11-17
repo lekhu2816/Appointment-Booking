@@ -3,7 +3,7 @@ import { NavLink, useNavigate ,Link } from "react-router-dom";
 import {assets} from '../assets/assets.js'
 const Navbar = () => {
   const navigate=useNavigate();
-  const [token ,setToken]=useState(false);
+  const [token ,setToken]=useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => {
     setIsOpen((prev) => !prev);
@@ -35,13 +35,13 @@ const Navbar = () => {
           token ? <div className="group relative: mobile:hidden">
             <img  className="w-8 rounded-full " src={assets.profile_pic} alt="" />
              <div className="absolute top-0 right-0 pt-12 z-20 hidden group-hover:block">
-              <div className=" cursor-pointer bg-slate-100 pt-1">
-               <p className="pl-1 font-bold italic text-red-500">Hey</p>
-               <p className="pl-1 font-bold">Lekhansh</p>
+              <div className=" cursor-pointer bg-gray-50 pt-1">
+               <p className="pl-2 font-bold italic text-red-500">Hey</p>
+               <p className="pl-2 font-bold">Lekhansh</p>
                <hr />
-               <p className="px-2 py-1 flex gap-2 items-center hover:bg-slate-200 "> <i className="fa-solid fa-user"></i> <span>My Profile</span></p>
-               <p className="px-2 py-1 flex gap-2 items-center  hover:bg-slate-200"> <i className="fa-solid fa-calendar-check"></i> <span>My Apointment</span></p>
-               <p className="px-2 py-1 flex gap-2 items-center  hover:bg-slate-200 "><i className="fa-solid fa-right-from-bracket"></i> <span>Logout</span></p>
+               <Link to={'/profile'} className="px-4 py-2 flex gap-2 items-center hover:bg-gray-100 "> <i className="fa-solid fa-user"></i> <span>My Profile</span></Link>
+               <Link to={'/my-appointment'} className="px-4 py-2 flex gap-2 items-center  hover:bg-gray-100"> <i className="fa-solid fa-calendar-check"></i> <span>My Apointment</span></Link>
+               <p className="px-4 py-2 flex gap-2 items-center  hover:bg-gray-100 "><i className="fa-solid fa-right-from-bracket"></i> <span>Logout</span></p>
               </div>
              </div>
           </div>:
@@ -57,13 +57,13 @@ const Navbar = () => {
         token ? <div className="group relative: md:hidden">
         <img  className="w-8 rounded-full " src={assets.profile_pic} alt="" />
          <div className="absolute top-0 right-0 pt-12 z-20 hidden group-hover:block">
-          <div className=" cursor-pointer bg-slate-100 pt-1">
+          <div className=" cursor-pointer bg-gray-50 pt-1">
            <p className="pl-1 font-bold italic text-red-500">Hey</p>
            <p className="pl-1 font-bold">Lekhansh</p>
            <hr />
-           <p className="px-2 py-1 flex gap-2 items-center hover:bg-slate-200 "> <i className="fa-solid fa-user"></i> <span>My Profile</span></p>
-           <p className="px-2 py-1 flex gap-2 items-center  hover:bg-slate-200"> <i className="fa-solid fa-calendar-check"></i> <span>My Apointment</span></p>
-           <p className="px-2 py-1 flex gap-2 items-center  hover:bg-slate-200 "><i className="fa-solid fa-right-from-bracket"></i> <span>Logout</span></p>
+           <Link to={'/profile'} className="px-3 py-2 flex gap-2 items-center hover:bg-slate-200 "> <i className="fa-solid fa-user"></i> <span>My Profile</span></Link>
+           <Link to={'/my-appointment'} className="px-3 py-2 flex gap-2 items-center  hover:bg-slate-200"> <i className="fa-solid fa-calendar-check"></i> <span>My Apointment</span></Link>
+           <p className="px-3 py-2 flex gap-2 items-center  hover:bg-slate-200 "><i className="fa-solid fa-right-from-bracket"></i> <span>Logout</span></p>
           </div>
          </div>
       </div>:<></>

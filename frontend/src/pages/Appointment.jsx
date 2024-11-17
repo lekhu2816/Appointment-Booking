@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../context/Context";
+import RelatedDoctors from "../component/RelatedDoctors";
 const dayMap=new Map();
 dayMap.set(0,"SUN")
 dayMap.set(1,"MON")
@@ -200,11 +201,13 @@ const Appointment = () => {
      
    </div>
    
-   <button className="text-sm py-2 px-10 bg-primary text-white rounded-full mt-4">
-     Book an appointment
-   </button>
+ {
+  slotTime.length>0?  <button className="text-sm py-2 px-10 bg-primary text-white rounded-full mt-4">
+  Book an appointment
+</button>:<></>
+ }
 </div>
-
+    <RelatedDoctors docId={docId} speciality={doctorInfo.speciality}/>
 </div>
     )
   );
