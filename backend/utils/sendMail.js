@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 
+
 const sendOTPEmail = async (otp, userEmail) => {
   const htmlTemplate = `
   <!DOCTYPE html>
@@ -229,8 +230,8 @@ const sendWelcomeMail = async (userEmail,userName) => {
 
   const mailOptions = {
     to: userEmail, 
-    from: `JobKhojo <${process.env.EMAIL_USER}>`,
-    subject: "Welcome to JobKhojo!",
+    from: `Prescripto <${process.env.EMAIL_USER}>`,
+    subject: "Welcome to Prescripto!",
     html: htmlTemplate,
   };
 

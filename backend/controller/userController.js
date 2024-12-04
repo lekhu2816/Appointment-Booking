@@ -15,8 +15,8 @@ const signup=async(req,res)=>{
        })
     }
     const userExist=await userModel.findOne({email});
-    console.log(userExist)
     if(userExist){
+        console.log("hello")
         return res.status(400).json({
             success:false,
             message:"User already exist"
@@ -73,14 +73,7 @@ try {
             message:"Invalid OTP"
         })
     }
-     user={
-        name:user.name,
-        email:user.email,
-        phoneNo:user.phoneNo,
-        dob:user.dob,
-        address:user.address,
-        gender:user.gender
-    } 
+     
     await userModel.findOneAndUpdate({email},{isVerified:true});
     const token =generateToken(user._id);
     sendWelcomeMail(email,user.name);
@@ -91,7 +84,7 @@ try {
     res.status(200).json({
         success:true,
         message:"Account Created Successfully",
-        user
+        
      })
 
 
@@ -103,7 +96,7 @@ try {
 }
 }
 
-//------------------------------- resend otp-------------------------------------//
+//----------------------------- resend otp--------------------------------//
 
 const resendOTP=async(req,res)=>{
     const{email}=req.body;
@@ -155,14 +148,7 @@ const signin= async(req,res)=>{
             message:"User doesn't exist"
            })
     }
-    user={
-        name:user.name,
-        email:user.email,
-        phoneNo:user.phoneNo,
-        dob:user.dob,
-        address:user.address,
-        gender:user.gender
-       }   
+      
 
      const token=generateToken(user._id);
      res.cookie('token',token,{
@@ -171,7 +157,8 @@ const signin= async(req,res)=>{
      })  
      res.status(200).json({
         success:true,
-        message:"User login successfully"
+        message:"User login successfully",
+      
      })
  
  } catch (error) {
@@ -182,4 +169,32 @@ const signin= async(req,res)=>{
  }
 }
 
-export {signup,verify,resendOTP};
+const userInfo=async(req,res)=>{
+ try {
+    const {_id}=req.body;
+    const user=await userModel.findOne(_id)
+    const userInfo={
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      image: user.image,
+      address: user.address,
+      gender: user.gender,
+      dob: user.dob,
+      phoneNo: user.phoneNo,
+
+    }
+    res.status(200).json({
+        success:true,
+        userInfo,
+        message:"User info send successfully"
+    })
+ } catch (error) {
+    res.status(400).json({
+        success:false,
+        message:"Error while sending userInfo"
+     })
+ }  
+}
+
+export {signup,verify,resendOTP,signin,userInfo};
