@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate ,Link } from "react-router-dom";
 import {assets} from '../assets/assets.js'
+import { AppContext } from "../context/Context.jsx";
 const Navbar = () => {
+  const {userAuthenticated,setUserAuthenticated}=useContext(AppContext);
   const navigate=useNavigate();
-  const [token ,setToken]=useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => {
     setIsOpen((prev) => !prev);
   };
+  
+  const logout=()=>{
+    localStorage.setItem('userAuthenticated', false); 
+    setUserAuthenticated(false);
+  }
 
   return (
     <nav className="z-20 relative">
@@ -32,7 +38,7 @@ const Navbar = () => {
           </ul>
         </div>
         {
-          token ? <div className="group relative: mobile:hidden">
+          userAuthenticated ? <div className="group relative: mobile:hidden">
             <img  className="w-8 rounded-full " src={assets.profile_pic} alt="" />
              <div className="absolute top-0 right-0 pt-12 z-20 hidden group-hover:block">
               <div className=" cursor-pointer bg-gray-50 pt-1">
@@ -41,7 +47,7 @@ const Navbar = () => {
                <hr />
                <Link to={'/profile'} className="px-4 py-2 flex gap-2 items-center hover:bg-gray-100 "> <i className="fa-solid fa-user"></i> <span>My Profile</span></Link>
                <Link to={'/my-appointment'} className="px-4 py-2 flex gap-2 items-center  hover:bg-gray-100"> <i className="fa-solid fa-calendar-check"></i> <span>My Apointment</span></Link>
-               <p className="px-4 py-2 flex gap-2 items-center  hover:bg-gray-100 "><i className="fa-solid fa-right-from-bracket"></i> <span>Logout</span></p>
+               <p onClick={logout} className="px-4 py-2 flex gap-2 items-center  hover:bg-gray-100 "><i className="fa-solid fa-right-from-bracket"></i> <span>Logout</span></p>
               </div>
              </div>
           </div>:
@@ -54,7 +60,7 @@ const Navbar = () => {
 
        <div className="hidden gap-4 items-center mobile:flex">
        {
-        token ? <div className="group relative: md:hidden">
+        userAuthenticated ? <div className="group relative: md:hidden">
         <img  className="w-8 rounded-full " src={assets.profile_pic} alt="" />
          <div className="absolute top-0 right-0 pt-12 z-20 hidden group-hover:block">
           <div className=" cursor-pointer bg-gray-50 pt-1">
@@ -97,7 +103,7 @@ const Navbar = () => {
           </li>
         </ul>
        {
-        token ?<></>:<button onClick={()=>navigate('auth/signin')}  className="px-2 py-1 bg-blue-500 text-white rounded-md">
+        userAuthenticated ?<></>:<button onClick={()=>navigate('auth/signin')}  className="px-2 py-1 bg-blue-500 text-white rounded-md">
         Login
       </button>
        }

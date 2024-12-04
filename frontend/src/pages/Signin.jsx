@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { assets } from '../assets/assets'
 import {useNavigate} from 'react-router-dom'
-
+import { AppContext } from '../context/Context';
+import axios from 'axios';
 const Signin = () => {
+  const {SERVER_URL,setUserAuthenticated}=useContext(AppContext);
   const navigate=useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [data,setData]=useState({email:"",password:""});
@@ -13,7 +15,17 @@ const Signin = () => {
   }
   const onHandleSubmit=async(e)=>{
    e.preventDefault();
-   console.log(data)
+   const url=`${SERVER_URL}/api/user/signin`
+   try {
+    const response=await axios.post(url,data );
+    if(response.data.success){
+      setUserAuthenticated(true);
+      localStorage.setItem('userAuthenticated',true);
+      navigate('/')
+    }
+   } catch (error) {
+    alert(error.response.data.message);
+   }
   }
 
   return (

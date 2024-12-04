@@ -1,20 +1,32 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
-
+import axios from 'axios'
+import { AppContext } from '../context/Context'
 const Signup = () => {
+  const {SERVER_URL}=useContext(AppContext)
   const navigate=useNavigate();
   const[showPassword,setShowPassword]=useState(false);
   const[data,setData]=useState({name:"",email:"",password:""});
+
+// ----------------------------api calling----------------------------------//
+
   const handleChange=(e)=>{
    const {name,value}=e.target;
    setData((prev)=>({...prev,[name]:value}))
   }
   const onHandleSubmit=async(e)=>{
     e.preventDefault();
-    console.log(data)
-    navigate('/auth/verify')
-  }
+    const url=`${SERVER_URL}/api/user/signup`
+    try {
+      const response=await axios.post(url,data);
+    if(response.data.success){
+      navigate('/auth/verify',{state:data.email})
+    }
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+}
   return (
     <div className='mobile:shadow-none tablet:shadow-none shadow-3xl rounded-md flex w-[60%] justify-center tablet:items-center  mobile:flex-col mobile:w-full tablet:flex-col tablet:w-full '>
       <div className='w-1/2 flex items-end relative mobile:w-full tablet:w-[70%]'>
