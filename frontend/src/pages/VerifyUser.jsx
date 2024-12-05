@@ -5,7 +5,7 @@ import axios from "axios";
 
 const VerifyUser = () => {
   const navigate = useNavigate();
-  const { SERVER_URL } = useContext(AppContext);
+  const { SERVER_URL ,setUserAuthenticated} = useContext(AppContext);
   const location = useLocation();
   const email = location.state;
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -36,7 +36,8 @@ const VerifyUser = () => {
       const response = await axios.post(url, {
         email: email,
         otp: verificationToken,
-      });
+      },{withCredentials:true});
+      console.log(response)
       if (response.data.success) {
         setUserAuthenticated(true);
         localStorage.setItem("userAuthenticated", true);
@@ -44,6 +45,7 @@ const VerifyUser = () => {
       }
     } catch (error) {
       alert(error.response.data.message);
+      
     }
   };
   return (

@@ -19,6 +19,8 @@ import ResetPassword from "./pages/ResetPassword";
 import Appointment from "./pages/Appointment";
 import MyProfile from "./pages/MyProfile";
 import MyAppointment from "./pages/MyAppointment";
+import DoctorLayout from "./layout/DoctorLayout";
+import DoctorSignin from "./pages/DoctorSignin";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -42,6 +44,11 @@ const App = () => {
          <Route path="forgot-password" element={<ForgotPassword/>}/>
          <Route path="reset-password/:token" element={<ResetPassword/>}/>
       </Route>
+
+      <Route path="doctor" element={<DoctorLayout/>}>
+        <Route path="signin" element={<DoctorSignin/>}/>
+      </Route>
+
        </>
     )
   );
