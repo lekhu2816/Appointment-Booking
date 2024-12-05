@@ -1,8 +1,9 @@
 import React from 'react'
-
 const DoctorsList = () => {
   return (
-    <div>DoctorsList</div>
+    <div className='border border-black'>
+       
+    </div>
   )
 }
 

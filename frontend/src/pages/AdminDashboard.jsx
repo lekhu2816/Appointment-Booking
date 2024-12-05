@@ -36,8 +36,8 @@ const AdminDashboard = () => {
           <p className="font-medium text-xl border-b border-black p-2">
             Latest Appointment
           </p>
-          
-          {[1, 2, 3, 4, 5,6,7,8,9 ,0].map((item, index) => {
+
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((item, index) => {
             return (
               <div className="p-2 flex gap-2 items-center justify-between border-b">
                 <div className="flex gap-2">

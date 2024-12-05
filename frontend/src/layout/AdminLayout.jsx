@@ -4,7 +4,6 @@ import { assets } from "../assets/assets";
 
 const AdminLayout = () => {
   const { pathname } = useLocation();
-  console.log(pathname)
   return (
     <>
       <div className="px-10 py-2 flex justify-between bg-white mobile:px-5 tablet:px-5 fixed top-0 w-full">
@@ -36,7 +35,7 @@ const AdminLayout = () => {
         <div className="w-[20%] border border-slate-300 tablet:w-[10%] ">
           <Link
             to={"/admin/dashboard"}
-            className={`${pathname=="/admin/dashboard"?"bg-blue-100 border-r-4 border-primary":""} px-10 py-3 font-normal flex items-center  gap-2  cursor-pointer tablet:px-5 mobile:px-2`}
+            className={`${pathname=="/admin/dashboard"?"bg-blue-100 border-r-4 border-primary":""} pl-10 py-3 font-normal flex items-center  gap-2  cursor-pointer tablet:pl-5 mobile:pl-2`}
           >
             <i className="text-lg fa-solid fa-border-all"></i>
             <p className="tablet:hidden mobile:hidden">Dashboard</p>

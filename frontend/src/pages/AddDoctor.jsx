@@ -1,9 +1,237 @@
-import React from 'react'
-
+import React, { useState } from "react";
+import upload_area from "../assets/upload_area.png";
 const AddDoctor = () => {
-  return (
-    <div>AddDoctor</div>
-  )
-}
+  const [image, setImage] = useState({ file: {}, preview: "" });
 
-export default AddDoctor
+  const fileChangeHandle = (event) => {
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    setImage({ file, preview: url });
+  };
+
+  return (
+    <div className=" bg-white p-2">
+      <h1 className="text-xl font-medium">Add Doctor</h1>
+
+      {/*------------------ Doctor form--------------- */}
+      <form>
+        <div className="flex tablet:flex-col">
+          {/* --------Doctor form section left-------- */}
+
+          <div className="w-1/2 p-5 flex flex-col gap-2 tablet:w-full">
+            {/*--------------adding name----------------  */}
+
+            <div className="flex items-center gap-2">
+              <label>
+                <input
+                  onChange={fileChangeHandle}
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  required
+                />
+                <img
+                  className="w-20 rounded-full"
+                  src={image.preview || upload_area}
+                />
+              </label>
+              <p>Add photo</p>
+            </div>
+
+            <div>
+              <p className="text-gray-600">Name</p>
+              <input
+                className="px-4 py-2 border border-gray-400 w-full rounded-sm"
+                type="text"
+                placeholder="Name"
+                required
+              />
+            </div>
+
+            {/*-----------------adding email------------------  */}
+
+            <div>
+              <p className="text-gray-600">Doctor Email</p>
+              <input
+                className="px-4 py-2 border border-gray-400 w-full rounded-sm"
+                type="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            {/*-------------------adding password--------------------  */}
+            <div>
+              <p className="text-gray-600">Set Password</p>
+              <input
+                className="px-4 py-2 border border-gray-400 w-full rounded-sm"
+                type="password"
+                placeholder="Password"
+                required
+              />
+            </div>
+            {/*-----------------Experience--------------  */}
+            <div>
+              <p className="text-gray-600">Experience</p>
+
+              <select className="px-4 py-2 border border-gray-400 w-full rounded-sm">
+                <option value="1 Year">1 Year</option>
+                <option value="2 Year">2 Year</option>
+                <option value="3 Year">3 Year</option>
+                <option value="4 Year">4 Year</option>
+                <option value="5 Year">5 Year</option>
+                <option value="6 Year">6 Year</option>
+                <option value="8 Year">8 Year</option>
+                <option value="10 Year">10 Year</option>
+              </select>
+            </div>
+
+            {/*-----------------Fees--------------  */}
+
+            <div>
+              <p className="text-gray-600">Fees</p>
+              <input
+                className="px-4 py-2 border border-gray-400 w-full rounded-sm"
+                type="number"
+                placeholder="fees"
+                required
+              />
+            </div>
+
+            {/* -------------About Doctor------------- */}
+
+            <div>
+              <p className="text-gray-600">Fees</p>
+              <textarea
+                rows={4}
+                className="p-2 border border-gray-400 w-full rounded-sm"
+                placeholder="about"
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          {/* ------------------------doctor from section right-----------------------------------*/}
+
+          <div className="w-1/2 p-5  flex flex-col gap-2 tablet:w-full">
+            {/* ------------------speciality---------------- */}
+            <div>
+              <p className="text-gray-600">Speciality</p>
+              <select className="px-4 py-2 border border-gray-400 w-full rounded-sm">
+                <option value="General physician">General physician</option>
+                <option value="Gynecologist">Gynecologist</option>
+                <option value="Dermatologist">Dermatologist</option>
+                <option value="Pediatricians">Pediatricians</option>
+                <option value="Neurologist">Neurologist</option>
+                <option value="Gastroenterologist">Gastroenterologist</option>
+              </select>
+            </div>
+
+            {/* --------------------Degree--------------- */}
+            <div>
+              <p className="text-gray-600">Degree</p>
+              <input
+                className="px-4 py-2 border border-gray-400 w-full rounded-sm"
+                type="text"
+                placeholder="Degree"
+                required
+              />
+            </div>
+
+            {/* --------------address----------------------- */}
+
+            <div>
+              <p className="text-gray-600">Address</p>
+              <input
+                className="px-4 py-2 border border-gray-400 w-full rounded-sm"
+                type="text"
+                placeholder="Address 1"
+                required
+              />
+              <input
+                className="mt-1 px-4 py-2 border border-gray-400 w-full rounded-sm"
+                type="text"
+                placeholder="Address 2"
+                required
+              />
+            </div>
+            {/* -----------------Slots Timing ---------*/}
+
+            <div className="flex flex-col gap-1">
+              <p className="text-gray-600">Add Slots</p>
+              <div className="flex items-center gap-1">
+                <p className="w-10">Sun</p>
+                <input
+                  className="px-4 py-1 border border-gray-400 w-full rounded-sm"
+                  type="text"
+                  placeholder="eg. 9:00 am , 1:30pm"
+                  required
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <p className="w-10">Mon</p>
+                <input
+                  className="px-4 py-1 border border-gray-400 w-full rounded-sm"
+                  type="text"
+                  placeholder="eg. 9:00 am , 1:30pm"
+                  required
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <p className="w-10">Tue</p>
+                <input
+                  className="px-4 py-1 border border-gray-400 w-full rounded-sm"
+                  type="text"
+                  placeholder="eg. 9:00 am , 1:30pm"
+                  required
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <p className="w-10">Wed</p>
+                <input
+                  className="px-4 py-1 border border-gray-400 w-full rounded-sm"
+                  type="text"
+                  placeholder="eg. 9:00 am , 1:30pm"
+                  required
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <p className="w-10">Thu</p>
+                <input
+                  className="px-4 py-1 border border-gray-400 w-full rounded-sm"
+                  type="text"
+                  placeholder="eg. 9:00 am , 1:30pm"
+                  required
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <p className="w-10">Fri</p>
+                <input
+                  className="px-4 py-1 border border-gray-400 w-full rounded-sm"
+                  type="text"
+                  placeholder="eg. 9:00 am , 1:30pm"
+                  required
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <p className="w-10">Sat</p>
+                <input
+                  className="px-4 py-1 border border-gray-400 w-full rounded-sm"
+                  type="text"
+                  placeholder="eg. 9:00 am , 1:30pm"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="px-5">
+          <button className="text-sm px-4 py-2 text-white bg-primary rounded-full">
+            Add Doctor
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default AddDoctor;
