@@ -5,7 +5,7 @@ import appointmentLogo from "../assets/appointmentLogo.png";
 const AdminDashboard = () => {
   return (
     <div className="flex flex-col gap-10">
-      <div className="flex justify-between">
+      <div className="flex justify-between mobile:flex-col mobile:gap-2 ">
         <div className="rounded-md p-4 border bg-white border-slate-300 flex justify-center items-center gap-2">
           <img className="w-12" src={doctorLogo} alt="" />
           <div>

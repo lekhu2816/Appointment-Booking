@@ -6,7 +6,7 @@ const AdminLayout = () => {
   const { pathname } = useLocation();
   return (
     <>
-      <div className="px-10 py-2 flex justify-between bg-white mobile:px-5 tablet:px-5 fixed top-0 w-full">
+      <div className="px-10 py-2 flex justify-between bg-white mobile:px-2 tablet:px-5 fixed top-0 w-full">
         <div className="flex gap-2 items-center">
           <img
             onClick={() => {
@@ -32,7 +32,7 @@ const AdminLayout = () => {
 
       {/*----------------- Sidebar------------------------- */}
 
-        <div className="w-[20%] border border-slate-300 tablet:w-[10%] ">
+        <div className="w-[20%] border border-slate-300 tablet:w-[10%] mobile:w-[10%]">
           <Link
             to={"/admin/dashboard"}
             className={`${pathname=="/admin/dashboard"?"bg-blue-100 border-r-4 border-primary":""} pl-10 py-3 font-normal flex items-center  gap-2  cursor-pointer tablet:pl-5 mobile:pl-2`}
@@ -62,7 +62,7 @@ const AdminLayout = () => {
             <p className="tablet:hidden mobile:hidden">Doctors List</p>
           </Link>
         </div>
-        <div className="w-[80%] p-5 bg-slate-100 pr-10 h-[90vh] overflow-scroll tablet:w-[90%] tablet:pr-5">
+        <div className="w-[80%] p-5 bg-slate-100 pr-10 h-[90vh] overflow-scroll tablet:w-[90%] tablet:pr-5 mobile:w-[90%] mobile:p-2 ">
           <Outlet />
         </div>
       </div>
