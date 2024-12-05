@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/Context";
 import axios from "axios";
-const Signin = () => {
+const AdminSignin = () => {
   const { SERVER_URL, setUserAuthenticated } =
     useContext(AppContext);
   const navigate = useNavigate();
@@ -16,17 +16,7 @@ const Signin = () => {
   };
   const onHandleSubmit = async (e) => {
     e.preventDefault();
-    let url = `${SERVER_URL}/api/user/signin`;
-    try {
-      let response = await axios.post(url, data, { withCredentials: true });
-      if (response.data.success) {
-        setUserAuthenticated(true);
-        localStorage.setItem("userAuthenticated", true);
-        navigate("/");
-      }
-    } catch (error) {
-      alert(error.response.data.message);
-    }
+    navigate('/admin/dashboard')
   };
 
   return (
@@ -38,11 +28,7 @@ const Signin = () => {
 
       {/* Form Section */}
       <div className=" p-5 w-1/2  tablet:w-3/4 mobile:w-full ">
-        <p className="text-2xl font-bold">Login</p>
-        <p className="text-sm text-slate-700 mt-2">
-          Please login to book appointment
-        </p>
-
+        <p className="text-2xl font-bold">Login as Admin</p>
         <form onSubmit={onHandleSubmit} className="flex flex-col gap-2 my-4">
           {/* Email Field */}
           <div className="px-2 py-1 flex gap-2 items-center border border-black rounded-sm">
@@ -90,28 +76,15 @@ const Signin = () => {
 
         {/* Signup Link */}
         <p className="text-sm">
-          Don't have an account?{" "}
-          <span
-            onClick={() => {
-              navigate("/auth/signup");
-            }}
-            className="text-red-500 cursor-pointer"
-          >
-            Create account
-          </span>
+          Login as 
+          <Link to={'/auth/admin/signin'} className="text-red-500 cursor-pointer"> Doctor
+          </Link>
         </p>
-        <div className="flex items-center justify-between gap-1 my-2">
-          <hr className="w-full bg-black"/>
-          <p className="text-sm">OR</p>
-          <hr className="w-full bg-black" />
-        </div>
-        <p className="text-sm">
-          Login as <Link to={'/auth/doctor/signin'} target="blank" className="text-red-500 cursor-pointer">Doctor</Link>
-        </p>
+
       </div>
       
     </div>
   );
 };
 
-export default Signin;
+export default AdminSignin;

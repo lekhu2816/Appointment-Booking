@@ -21,6 +21,11 @@ import MyProfile from "./pages/MyProfile";
 import MyAppointment from "./pages/MyAppointment";
 import DoctorLayout from "./layout/DoctorLayout";
 import DoctorSignin from "./pages/DoctorSignin";
+import AdminLayout from "./layout/AdminLayout";
+import AdminSignin from "./pages/AdminSignin";
+import AdminDashboard from "./pages/AdminDashboard";
+import AddDoctor from "./pages/AddDoctor";
+import DoctorsList from "./pages/DoctorsList";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -43,10 +48,18 @@ const App = () => {
          <Route path="verify" element={<VerifyUser/>}/>
          <Route path="forgot-password" element={<ForgotPassword/>}/>
          <Route path="reset-password/:token" element={<ResetPassword/>}/>
+         <Route path="admin/signin" element={<AdminSignin/>}/>
+         <Route path="doctor/signin" element={<DoctorSignin/>}/>
       </Route>
 
       <Route path="doctor" element={<DoctorLayout/>}>
-        <Route path="signin" element={<DoctorSignin/>}/>
+      </Route>
+
+      <Route path="admin" element={<AdminLayout/>}>
+      <Route path="dashboard" element={<AdminDashboard/>}/>
+      <Route path="appointments" element={<AdminDashboard/>}/>
+      <Route path="add-doctor" element={<AddDoctor/>}/>
+      <Route path="doctors-list" element={<DoctorsList/>}/>
       </Route>
 
        </>
