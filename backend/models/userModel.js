@@ -16,14 +16,11 @@ const userSchema = mongoose.Schema({
   },
   image:{
      type:String,
-     default:""
+     default:"https://res.cloudinary.com/dlkex5mge/image/upload/v1733346592/userLogo_eij5cc.png"
   },
   address:{
-     type:Object,
-     default:{
-        line1:"",
-        line2:""
-     }
+     type:String,
+     default:""
   },
   gender: {
     type: String,
@@ -36,7 +33,7 @@ const userSchema = mongoose.Schema({
   },
   phoneNo:{
     type:Number,
-    default:'0000000000'
+    default:0
   },
   isVerified:{
     type:Boolean,
