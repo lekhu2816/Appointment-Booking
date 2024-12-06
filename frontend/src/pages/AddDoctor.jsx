@@ -1,31 +1,111 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import upload_area from "../assets/upload_area.png";
+import { AppContext } from "../context/Context";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import Loader from "../component/Loader";
 const AddDoctor = () => {
+  const [loading ,setLoading]=useState(false)
+  const { SERVER_URL } = useContext(AppContext);
   const [image, setImage] = useState({ file: {}, preview: "" });
-  const [doctorData,setDoctorData]=useState({
-    name:"",
-    email:"",
-    password:"",
-    experience:"",
-    fees:"",
-    about:"",
-    speciality:"",
-    degree:"",
-    address:{
-      line1:"",
-      line2:""
+  const [doctorData, setDoctorData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    experience: "",
+    fees: "",
+    about: "",
+    speciality: "",
+    degree: "",
+    address: {
+      line1: "",
+      line2: "",
     },
-    slotAvailable:{
-      MON:"",
-      TUE:"",
-      WED:"",
-      THU:"",
-      FRI:"",
-      SAT:"",
-      SUN:""
+    slotAvailable: {
+      MON: "",
+      TUE: "",
+      WED: "",
+      THU: "",
+      FRI: "",
+      SAT: "",
+      SUN: "",
+    },
+  });
 
+  const onFormSubmit = async (event) => {
+    event.preventDefault();
+    if (image.file == "") {
+      toast.error("Add Profile Picture")
+     
+    } else {
+      setLoading(true)
+      const formData = new FormData();
+      formData.append("image", image.file);
+      formData.append("doctorData", JSON.stringify(doctorData));
+      const url = `${SERVER_URL}/api/admin/add-doctor`;
+        try {
+          const response = await axios.post(url, formData, {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          if(response.status==200){
+            toast.success(response.data.message)
+            setImage({ file: {}, preview: "" })
+            setDoctorData({
+              name: "",
+              email: "",
+              password: "",
+              experience: "",
+              fees: "",
+              about: "",
+              speciality: "",
+              degree: "",
+              address: {
+                line1: "",
+                line2: "",
+              },
+              slotAvailable: {
+                MON: "",
+                TUE: "",
+                WED: "",
+                THU: "",
+                FRI: "",
+                SAT: "",
+                SUN: "",
+              },
+            })
+          }
+        } catch (error) {
+          
+         if(error.status==401||error.status==500){
+          toast.error(error.response.data.message)
+          
+         }
+        }
+      
     }
-})
+    setLoading(false);
+  };
+
+  const onChangeHandle = (event) => {
+    const { name, value } = event.target;
+    if (name.includes(".")) {
+      const [key, subKey] = name.split(".");
+      setDoctorData((prev) => ({
+        ...prev,
+        [key]: { ...prev[key], [subKey]: value },
+      }));
+    } else {
+      setDoctorData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
   const fileChangeHandle = (event) => {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
@@ -37,7 +117,7 @@ const AddDoctor = () => {
       <h1 className="text-xl font-medium">Add Doctor</h1>
 
       {/*------------------ Doctor form--------------- */}
-      <form>
+      <form onSubmit={onFormSubmit}>
         <div className="flex tablet:flex-col mobile:flex-col">
           {/* --------Doctor form section left-------- */}
 
@@ -67,6 +147,7 @@ const AddDoctor = () => {
                 className="px-4 py-2 border border-gray-400 w-full rounded-sm"
                 type="text"
                 name="name"
+                onChange={onChangeHandle}
                 value={doctorData.name}
                 placeholder="Name"
                 required
@@ -82,6 +163,7 @@ const AddDoctor = () => {
                 type="email"
                 name="email"
                 value={doctorData.email}
+                onChange={onChangeHandle}
                 placeholder="Email"
                 required
               />
@@ -94,6 +176,7 @@ const AddDoctor = () => {
                 type="password"
                 name="password"
                 value={doctorData.password}
+                onChange={onChangeHandle}
                 placeholder="Password"
                 required
               />
@@ -102,7 +185,12 @@ const AddDoctor = () => {
             <div>
               <p className="text-gray-600">Experience</p>
 
-              <select name="experience" value={doctorData.experience} className="px-4 py-2 border border-gray-400 w-full rounded-sm">
+              <select
+                onChange={onChangeHandle}
+                name="experience"
+                value={doctorData.experience}
+                className="px-4 py-2 border border-gray-400 w-full rounded-sm"
+              >
                 <option value="1 Year">1 Year</option>
                 <option value="2 Year">2 Year</option>
                 <option value="3 Year">3 Year</option>
@@ -123,6 +211,7 @@ const AddDoctor = () => {
                 type="number"
                 name="fees"
                 value={doctorData.fees}
+                onChange={onChangeHandle}
                 placeholder="fees"
                 required
               />
@@ -138,8 +227,8 @@ const AddDoctor = () => {
                 placeholder="about"
                 name="about"
                 value={doctorData.about}
+                onChange={onChangeHandle}
                 required
-                
               ></textarea>
             </div>
           </div>
@@ -150,7 +239,13 @@ const AddDoctor = () => {
             {/* ------------------speciality---------------- */}
             <div>
               <p className="text-gray-600">Speciality</p>
-              <select name="speciality" value={doctorData.speciality} className="px-4 py-2 border border-gray-400 w-full rounded-sm">
+              <select
+                onChange={onChangeHandle}
+                name="speciality"
+                value={doctorData.speciality}
+                className="px-4 py-2 border border-gray-400 w-full rounded-sm"
+              >
+                 <option value="Speciality">Speciality</option>
                 <option value="General physician">General physician</option>
                 <option value="Gynecologist">Gynecologist</option>
                 <option value="Dermatologist">Dermatologist</option>
@@ -169,6 +264,7 @@ const AddDoctor = () => {
                 placeholder="Degree"
                 name="degree"
                 value={doctorData.degree}
+                onChange={onChangeHandle}
                 required
               />
             </div>
@@ -183,6 +279,7 @@ const AddDoctor = () => {
                 name="address.line1"
                 value={doctorData.address.line1}
                 placeholder="Address 1"
+                onChange={onChangeHandle}
                 required
               />
               <input
@@ -190,6 +287,7 @@ const AddDoctor = () => {
                 type="text"
                 name="address.line2"
                 value={doctorData.address.line2}
+                onChange={onChangeHandle}
                 placeholder="Address 2"
                 required
               />
@@ -203,6 +301,9 @@ const AddDoctor = () => {
                 <input
                   className="px-4 py-1 border border-gray-400 w-full rounded-sm"
                   type="text"
+                  name="slotAvailable.SUN"
+                  value={doctorData.slotAvailable.SUN}
+                  onChange={onChangeHandle}
                   placeholder="eg. 9:00 am , 1:30pm"
                   required
                 />
@@ -212,6 +313,9 @@ const AddDoctor = () => {
                 <input
                   className="px-4 py-1 border border-gray-400 w-full rounded-sm"
                   type="text"
+                  name="slotAvailable.MON"
+                  value={doctorData.slotAvailable.MON}
+                  onChange={onChangeHandle}
                   placeholder="eg. 9:00 am , 1:30pm"
                   required
                 />
@@ -221,6 +325,9 @@ const AddDoctor = () => {
                 <input
                   className="px-4 py-1 border border-gray-400 w-full rounded-sm"
                   type="text"
+                  name="slotAvailable.TUE"
+                  value={doctorData.slotAvailable.TUE}
+                  onChange={onChangeHandle}
                   placeholder="eg. 9:00 am , 1:30pm"
                   required
                 />
@@ -230,6 +337,9 @@ const AddDoctor = () => {
                 <input
                   className="px-4 py-1 border border-gray-400 w-full rounded-sm"
                   type="text"
+                  name="slotAvailable.WED"
+                  value={doctorData.slotAvailable.WED}
+                  onChange={onChangeHandle}
                   placeholder="eg. 9:00 am , 1:30pm"
                   required
                 />
@@ -239,6 +349,9 @@ const AddDoctor = () => {
                 <input
                   className="px-4 py-1 border border-gray-400 w-full rounded-sm"
                   type="text"
+                  name="slotAvailable.THU"
+                  value={doctorData.slotAvailable.THU}
+                  onChange={onChangeHandle}
                   placeholder="eg. 9:00 am , 1:30pm"
                   required
                 />
@@ -248,6 +361,9 @@ const AddDoctor = () => {
                 <input
                   className="px-4 py-1 border border-gray-400 w-full rounded-sm"
                   type="text"
+                  name="slotAvailable.FRI"
+                  value={doctorData.slotAvailable.FRI}
+                  onChange={onChangeHandle}
                   placeholder="eg. 9:00 am , 1:30pm"
                   required
                 />
@@ -257,6 +373,9 @@ const AddDoctor = () => {
                 <input
                   className="px-4 py-1 border border-gray-400 w-full rounded-sm"
                   type="text"
+                  name="slotAvailable.SAT"
+                  value={doctorData.slotAvailable.SAT}
+                  onChange={onChangeHandle}
                   placeholder="eg. 9:00 am , 1:30pm"
                   required
                 />
@@ -265,9 +384,11 @@ const AddDoctor = () => {
           </div>
         </div>
         <div className="px-5 mobile:px-1">
-          <button className="text-sm px-4 py-2 text-white bg-primary rounded-full">
+          {
+            loading?<Loader/>:<button className="text-sm px-4 py-2 text-white bg-primary rounded-full">
             Add Doctor
           </button>
+          }
         </div>
       </form>
     </div>

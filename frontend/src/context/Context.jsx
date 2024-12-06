@@ -5,6 +5,7 @@ export const AppContext = createContext(null);
 const Context = (props) => {
   const SERVER_URL = "http://localhost:5001";
   const [userAuthenticated, setUserAuthenticated] = useState(false);
+  const [doctors,setDoctors]=useState([]);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -39,6 +40,24 @@ const Context = (props) => {
   useEffect(() => {
     setUserAuthenticated(JSON.parse(localStorage.getItem("userAuthenticated")));
   }, []);
+
+  useEffect(()=>{
+    const fetchDoctorData=async()=>{
+    
+      try {
+        const url=`${SERVER_URL}/api/admin/doctors`
+        const response=await axios.get(url,{withCredentials:true})
+        if(response.status==200){
+          setDoctors(response.data.doctors)
+        }
+      } catch (error) {
+         if(error.status==401||error.status==500){
+          alert(error.response.data.message)
+         }
+      }
+      }
+   fetchDoctorData()
+  },[])
 
   const contextValue = {
     doctors,
