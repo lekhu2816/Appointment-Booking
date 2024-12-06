@@ -3,6 +3,9 @@ import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/Context";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Signin = () => {
   const { SERVER_URL, setUserAuthenticated } =
     useContext(AppContext);
@@ -20,12 +23,20 @@ const Signin = () => {
     try {
       let response = await axios.post(url, data, { withCredentials: true });
       if (response.data.success) {
+        toast.success(response.data.message)
         setUserAuthenticated(true);
         localStorage.setItem("userAuthenticated", true);
         navigate("/");
+
+
       }
     } catch (error) {
-      alert(error.response.data.message);
+      console.log(error)
+      if(error.status==401||error.status==500||error.status==400){
+        toast.error(error.response.data.message)
+      }
+
+     
     }
   };
 
