@@ -45,11 +45,11 @@ const addDoctor = async (req, res) => {
 
     const {path}=file;
     const imageUrl=await uploadToCloudnary(path);
-    fs.unlink(path,(error)=>{
-      if(!error){
-        console.log("Removed successfully");
+    fs.unlink(path, (error) => {
+      if (!error) {
+        console.log("Successfully deleted");
       }
-    })
+    });
     const hashedPassword=await hashPassword(password);
     Object.keys(slotAvailable).forEach((key) => {
       slotAvailable[key] = slotAvailable[key].split(",").map((slot) => slot.trim());
@@ -90,8 +90,13 @@ const addDoctor = async (req, res) => {
 
 //------------------------get Doctor----------------------------//
 
-const getDoctors = (req, res) => {
+const getDoctors = async(req, res) => {
   try {
+    const doctors=await doctorModel.find({});
+    res.status(200).json({
+      success:true,
+      doctors
+    })
   } catch (error) {
     res.status(500).json({
       success: false,

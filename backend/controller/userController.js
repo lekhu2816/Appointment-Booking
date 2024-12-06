@@ -48,7 +48,7 @@ const signup = async (req, res) => {
   }
 };
 
-// -------------------------------------user verification-------------------------//
+// --------------------------user verification-------------------------//
 
 const verify = async (req, res) => {
   const { otp, email } = req.body;
@@ -236,7 +236,6 @@ const updateUserProfile = async (req, res) => {
   try {
     const file = req.file;
     const {id}=req.user;
-    console.log(id)
     const {userData}=req.body;
    
     const userInfo=JSON.parse(userData);
