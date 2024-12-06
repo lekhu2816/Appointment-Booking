@@ -213,7 +213,11 @@ const userInfo = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token",{
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,}
+    );
     res.status(200).json({
       success: true,
       message: "Logged out successfully",
@@ -256,7 +260,7 @@ const updateUserProfile = async (req, res) => {
       message: "Profile updated successfully",
     });
   } catch (error) {
-    res.status(401).json({
+    res.status(500).json({
       success: false,
       message: "Error while logging out",
     });
